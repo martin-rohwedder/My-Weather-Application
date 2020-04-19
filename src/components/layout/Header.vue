@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1>Header</h1>
-    </div>
+    <header>
+        <h1>Todays Weather</h1>
+    </header>
 </template>
 
 <script>
@@ -10,6 +10,9 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+h1
+    margin-top 60px
+    margin-bottom 20px
+    text-align center
 </style>

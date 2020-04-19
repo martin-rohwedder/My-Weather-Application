@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Current Weather</h1>
         {{ currentWeather }}
     </div>
 </template>
@@ -18,7 +17,7 @@ export default {
     mounted() {
         axios
             .get('http://api.openweathermap.org/data/2.5/weather?q=Slagelse,dk&appid=becea41c15a8e7e9c71432a09c2b2432')
-            .then(response => (this.currentWeather = response))
+            .then(response => (this.currentWeather = response.data))
             .catch(error => console.log(error))
     }
 
@@ -29,6 +28,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-h1
-    color: red
+
 </style>

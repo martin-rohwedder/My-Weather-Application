@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1>Footer</h1>
-    </div>
+    <footer>
+        <p>&copy; 2020 Martin Rohwedder. All rights reserved.</p>
+    </footer>
 </template>
 
 <script>
@@ -10,6 +10,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+p
+    padding-bottom 20px
+    text-align center
 </style>

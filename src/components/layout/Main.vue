@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <main>
         <ShowCurrentWeatherComponent />
-    </div>
+    </main>
 </template>
 
 <script>

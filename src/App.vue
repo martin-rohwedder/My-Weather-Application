@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <HeaderComponent />
-    <MainComponent />
+    <div id="site-content">
+      <MainComponent />
+    </div>
     <FooterComponent />
   </div>
 </template>
@@ -30,5 +32,12 @@ export default {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#site-content {
+  flex: 1;
 }
 </style>
