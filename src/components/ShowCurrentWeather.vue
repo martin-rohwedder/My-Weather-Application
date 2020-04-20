@@ -6,7 +6,8 @@
 
         <section class="section-center" v-else>
             <div v-if="loading">
-                <p>Vejr data indlæses ...</p>
+                <img v-show="isItDay()" v-bind:src="iconUrlSpinnerDay" alt="">
+                <img v-show="!isItDay()" v-bind:src="iconUrlSpinnerNight" alt="">
             </div>
 
             <div v-else>
@@ -86,6 +87,10 @@ export default {
             iconUrlRain: require('../assets/weather-icons/rainy-5.svg'),
             iconUrlSnow: require('../assets/weather-icons/snowy-6.svg'),
             iconUrlThunder: require('../assets/weather-icons/thunder.svg'),
+
+            // Spinner icons
+            iconUrlSpinnerDay: require('../assets/spinner-icons/spinner-day.svg'),
+            iconUrlSpinnerNight: require('../assets/spinner-icons/spinner-night.svg')
         }
     },
     mounted() {
@@ -102,7 +107,11 @@ export default {
                     this.errored = true
                 })
                 .finally(() => {
-                    this.loading = false
+                    // Time out for test purposes
+                    setTimeout(() => {
+                        this.loading = false
+                    }, 1000)
+                    // this.loading = false
                 })
         },
         // Determine if it is day or night
