@@ -15,7 +15,8 @@
                         <div v-for="(weather, propertyName, index) in value.weather" v-bind:key="index">
                             <!-- Clear -->
                             <div class="weather-icon-container" v-if="weather.id === 800">
-                                <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                                <img v-show="isItDay()" v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay()" v-bind:src="iconUrlClearNight" class="weather-icon-image" alt="">
                             </div>
                             <!-- Clouds -->
                             <div class="weather-icon-container" v-else-if="weather.main === 'Clouds'">
@@ -93,6 +94,20 @@ export default {
                 .finally(() => {
                     this.loading = false
                 })
+        },
+        // Determine if it is day or night
+        isItDay() {
+            let hours = new Date().getHours()
+            let isItDay = true
+
+            // If hours is between 6 and 20 exclusive it is day
+            if (hours > 5 && hours < 20) {
+                isItDay = true
+            } else {
+                isItDay = false
+            }
+
+            return isItDay
         },
         // Get rounded Max temperature
         getMaxTemp(main) {
