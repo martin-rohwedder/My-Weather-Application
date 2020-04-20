@@ -10,25 +10,34 @@
             </div>
 
             <div v-else>
-                <div id="weather-content" v-for="(value, index) in this.currentWeather.weather" v-bind:key="index">
-                    <div class="weather-icon-container" v-if="value.main === 'Clear'">
-                        <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
-                    </div>
-                    <div v-else-if="value.main === 'Clouds'">
-                        <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
-                    </div>
-                    <div v-else-if="value.main === 'Rain'">
-                        <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
-                    </div>
-                    <div v-else-if="value.main === 'Snow'">
-                        <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
-                    </div>
-                    <div v-else-if="value.main === 'Thunderstorm'">
-                        <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
+                <div id="weather-content" v-for="(value, index) in this.currentWeather" v-bind:key="index">
+                    <div v-for="(weather, propertyName, index) in value.weather" v-bind:key="index">
+                        <!-- Clear -->
+                        <div class="weather-icon-container" v-if="weather.id === 800">
+                            <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                        </div>
+                        <!-- Clouds -->
+                        <div class="weather-icon-container" v-else-if="weather.main === 'Clouds'">
+                            <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
+                        </div>
+                        <!-- Rain -->
+                        <div class="weather-icon-container" v-else-if="weather.main === 'Rain'">
+                            <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
+                        </div>
+                        <!-- Snow -->
+                        <div class="weather-icon-container" v-else-if="weather.main === 'Snow'">
+                            <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
+                        </div>
+                        <!-- Thunderstorm -->
+                        <div class="weather-icon-container" v-else-if="weahter.main === 'Thunderstorm'">
+                            <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
+                        </div>
                     </div>
 
-                    <div class="weather-details-container" v-if="index === 0">
-                        {{ value.description }}
+                    <div class="weather-details-container">
+                        <div v-for="(main, propertyName, index) in value.main" v-bind:key="index">
+                            <p v-if="propertyName === 'temp'">{{ main }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,6 +55,7 @@ export default {
             currentWeather: {},
             loading: true,
             errored: false,
+            // List of weather Condition Codes: https://openweathermap.org/weather-conditions
             iconUrlClearDay: require('../assets/weather-icons/day.svg'),
             iconUrlClearNight: require('../assets/weather-icons/night.svg'),
             iconUrlCloudDay: require('../assets/weather-icons/cloudy-day-2.svg'),
@@ -61,10 +71,11 @@ export default {
         this.getCurrentWeather('Slagelse', 'dk', 'da', 'metric')
     },
     methods: {
+        // get the current weather by cityname and countrycode. Define the language and units (Celsius, Fahrenheit) the data will be returned as
         getCurrentWeather(cityName, country, language, units) {
             axios
                 .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',' + country + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
-                .then(response => (this.currentWeather = response.data))
+                .then(response => (this.currentWeather = response))
                 .catch(error => {
                     console.log(error)
                     this.errored = true
@@ -89,15 +100,14 @@ export default {
     flex-direction row
     justify-content space-evenly
     align-items center
-    background yellowgreen
     width 50vw
 
 .weather-icon-container
-    background #e8f4ff
+    min-width 400px
 
 .weather-details-container
     min-width 250px
-    background red
+    background yellowgreen
 
 .weather-icon-image
     width: 500px

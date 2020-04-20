@@ -32,6 +32,7 @@ export default {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
+  background-color: #e8f4ff;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
