@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h1>Todays Weather</h1>
+        <h1>Vejret I Dag</h1>
     </header>
 </template>
 
@@ -15,4 +15,5 @@ h1
     margin-top 60px
     margin-bottom 20px
     text-align center
+    font-size 3.5em
 </style>
