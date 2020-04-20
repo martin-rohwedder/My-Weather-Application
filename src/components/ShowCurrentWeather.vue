@@ -6,7 +6,7 @@
 
         <section class="section-center" v-else>
             <div v-if="loading">
-                The data is loading ...
+                <p>Vejr data indlæses ...</p>
             </div>
 
             <div v-else>
@@ -18,16 +18,26 @@
                                 <img v-show="isItDay()" v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
                                 <img v-show="!isItDay()" v-bind:src="iconUrlClearNight" class="weather-icon-image" alt="">
                             </div>
-                            <!-- Clouds -->
-                            <div class="weather-icon-container" v-else-if="weather.main === 'Clouds'">
+                            <!-- Few Clouds -->
+                            <div class="weather-icon-container" v-else-if="weather.id >= 801 && weather.id <= 802">
+                                <img v-show="isItDay()" v-bind:src="iconUrlCloudDay" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay()" v-bind:src="iconUrlCloudNight" class="weather-icon-image" alt="">
+                            </div>
+                            <!-- Many clouds -->
+                            <div class="weather-icon-container" v-else-if="weather.id >= 803 && weather.id <= 804">
                                 <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
                             </div>
+                            <!-- Light Rain -->
+                            <div class="weather-icon-container" v-else-if="weather.id === 500">
+                                <img v-show="isItDay()" v-bind:src="iconUrlRainAndSun" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay()" v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
+                            </div>
                             <!-- Rain -->
-                            <div class="weather-icon-container" v-else-if="weather.main === 'Rain'">
+                            <div class="weather-icon-container" v-else-if="weather.id > 500 && weather.id <= 531">
                                 <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
                             </div>
                             <!-- Snow -->
-                            <div class="weather-icon-container" v-else-if="weather.main === 'Snow'">
+                            <div class="weather-icon-container" v-else-if="weather.main === 'snow'">
                                 <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
                             </div>
                             <!-- Thunderstorm -->
@@ -79,7 +89,7 @@ export default {
         }
     },
     mounted() {
-        this.getCurrentWeather('Slagelse', 'dk', 'da', 'metric')
+        this.getCurrentWeather('København', 'dk', 'da', 'metric')
     },
     methods: {
         // get the current weather by cityname and countrycode. Define the language and units (Celsius, Fahrenheit) the data will be returned as
