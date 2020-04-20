@@ -11,28 +11,25 @@
 
             <div v-else>
                 <div id="weather-content">
-                    <div v-for="(value) in this.currentWeather.weather" v-bind:key="value.id">
+                    <div v-for="(value, index) in this.currentWeather.weather" v-bind:key="index">
                         <div class="test">
                             <div v-if="value.main === 'Clear'">
                                 <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
                             </div>
                             <div v-else-if="value.main === 'Clouds'">
-                                <img v-bind:src="iconUrlCloud" alt="">
+                                <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
                             </div>
                             <div v-else-if="value.main === 'Rain'">
-                                <img v-bind:src="iconUrlRain" alt="">
+                                <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
                             </div>
                             <div v-else-if="value.main === 'Snow'">
-                                <img v-bind:src="iconUrlSnow" alt="">
+                                <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
                             </div>
                             <div v-else-if="value.main === 'Thunderstorm'">
-                                <img v-bind:src="iconUrlThunder" alt="">
-                            </div>
-                            <div v-else>
-                                <img v-bind:src="iconUrlCloud" alt="">
+                                <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
                             </div>
                         </div>
-                        <div class="test2">
+                        <div class="test2" v-if="index === 0">
                             {{ value.description }}
                         </div>
                     </div>
@@ -64,21 +61,23 @@ export default {
         }
     },
     mounted() {
-        axios
-            .get('http://api.openweathermap.org/data/2.5/weather?q=Slagelse,dk&appid=becea41c15a8e7e9c71432a09c2b2432&lang=da')
-            .then(response => (this.currentWeather = response.data))
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => {
-                this.loading = false
-            })
+        // axios
+        //     .get('http://api.openweathermap.org/data/2.5/weather?q=Slagelse,dk&appid=becea41c15a8e7e9c71432a09c2b2432&lang=da&units=metric')
+        //     .then(response => (this.currentWeather = response.data))
+        //     .catch(error => {
+        //         console.log(error)
+        //         this.errored = true
+        //     })
+        //     .finally(() => {
+        //         this.loading = false
+        //     })
+
+        this.getCurrentWeather('Slagelse', 'dk', 'da', 'metric')
     },
     methods: {
-        getCurrentWeather(cityName, country, language) {
+        getCurrentWeather(cityName, country, language, units) {
             axios
-                .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',' + country + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language)
+                .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',' + country + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
                 .then(response => (this.currentWeather = response.data))
                 .catch(error => {
                     console.log(error)
@@ -113,6 +112,6 @@ export default {
     flex 1
 
 .weather-icon-image
-    width: 350px
+    width: 450px
 
 </style>
