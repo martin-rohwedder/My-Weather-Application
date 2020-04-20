@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="day-background" v-bind:class="{'night-background': !this.dayOrNot}">
+  <div id="app" v-bind:class="{'day-background': this.dayOrNot, 'night-background': !this.dayOrNot}">
     <HeaderComponent />
     <div id="site-content">
       <MainComponent />
