@@ -10,34 +10,44 @@
             </div>
 
             <div v-else>
-                <div id="weather-content" v-for="(value, index) in this.currentWeather" v-bind:key="index">
-                    <div v-for="(weather, propertyName, index) in value.weather" v-bind:key="index">
-                        <!-- Clear -->
-                        <div class="weather-icon-container" v-if="weather.id === 800">
-                            <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                <div v-for="(value, index) in this.currentWeather" v-bind:key="index">
+                    <div id="weather-content">
+                        <div v-for="(weather, propertyName, index) in value.weather" v-bind:key="index">
+                            <!-- Clear -->
+                            <div class="weather-icon-container" v-if="weather.id === 800">
+                                <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                            </div>
+                            <!-- Clouds -->
+                            <div class="weather-icon-container" v-else-if="weather.main === 'Clouds'">
+                                <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
+                            </div>
+                            <!-- Rain -->
+                            <div class="weather-icon-container" v-else-if="weather.main === 'Rain'">
+                                <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
+                            </div>
+                            <!-- Snow -->
+                            <div class="weather-icon-container" v-else-if="weather.main === 'Snow'">
+                                <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
+                            </div>
+                            <!-- Thunderstorm -->
+                            <div class="weather-icon-container" v-else-if="weahter.main === 'Thunderstorm'">
+                                <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
+                            </div>
                         </div>
-                        <!-- Clouds -->
-                        <div class="weather-icon-container" v-else-if="weather.main === 'Clouds'">
-                            <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
-                        </div>
-                        <!-- Rain -->
-                        <div class="weather-icon-container" v-else-if="weather.main === 'Rain'">
-                            <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
-                        </div>
-                        <!-- Snow -->
-                        <div class="weather-icon-container" v-else-if="weather.main === 'Snow'">
-                            <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
-                        </div>
-                        <!-- Thunderstorm -->
-                        <div class="weather-icon-container" v-else-if="weahter.main === 'Thunderstorm'">
-                            <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
+
+                        <div class="weather-details-container">
+                            <div v-for="(main, propertyName, index) in value.main" v-bind:key="index">
+                                <p class="main-temperature-text" v-if="propertyName === 'temp'">{{ Math.round(main) }}&deg;</p>
+                                <div>
+                                    <div class="min-max-temp-container">
+                                        <p v-show="propertyName === 'temp'">{{ getMaxTemp(value.main) }}&deg; / {{ getMinTemp(value.main) }}&deg;</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="weather-details-container">
-                        <div v-for="(main, propertyName, index) in value.main" v-bind:key="index">
-                            <p v-if="propertyName === 'temp'">{{ main }}</p>
-                        </div>
+                    <div class="weather-details-lower-container" v-for="(sys, propertyName, index) in value.sys" v-bind:key="index">
+                        <p v-show="propertyName === 'country'" class="city-name-text">{{ value.name }}, {{ getCountryCode(value.sys) }}</p>
                     </div>
                 </div>
             </div>
@@ -83,6 +93,20 @@ export default {
                 .finally(() => {
                     this.loading = false
                 })
+        },
+        // Get rounded Max temperature
+        getMaxTemp(main) {
+            let tempMax = main.temp_max
+            return Math.round(tempMax)
+        },
+        // Get rounded Min temperature
+        getMinTemp(main) {
+            let tempMin = main.temp_min
+            return Math.round(tempMin)
+        },
+        getCountryCode(sys) {
+            let countryCode = sys.country
+            return countryCode
         }
     }
 }
@@ -103,13 +127,32 @@ export default {
     width 50vw
 
 .weather-icon-container
-    min-width 400px
+    flex 1
+    width 350px
+    min-width 100px
 
 .weather-details-container
-    min-width 250px
-    background yellowgreen
+    width 250px
+    min-width 100px
 
 .weather-icon-image
-    width: 500px
+    width: 450px
+
+.main-temperature-text
+    font-size 4em
+
+.min-max-temp-container > p
+    width 100px
+    text-align center
+    font-size 1.25em
+
+.weather-details-lower-container
+    display flex
+    flex-direction column
+    align-items center
+    width 50vw
+
+.city-name-text
+    font-size 3em
 
 </style>
