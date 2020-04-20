@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="section-center" v-if="errored">
-            <p>Sorry, but something happened when we tried to get the data. Please try again.</p>
+            <p>Desværre! Der skete en fejl da jeg prøvede at hente vejrdata. Prøv venligst igen.</p>
         </section>
 
         <section class="section-center" v-else>
