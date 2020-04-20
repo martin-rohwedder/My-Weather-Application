@@ -1,37 +1,34 @@
 <template>
     <div>
-        <section v-if="errored">
+        <section class="section-center" v-if="errored">
             <p>Sorry, but something happened when we tried to get the data. Please try again.</p>
         </section>
 
-        <section v-else>
+        <section class="section-center" v-else>
             <div v-if="loading">
                 The data is loading ...
             </div>
 
             <div v-else>
-                <div id="weather-content">
-                    <div v-for="(value, index) in this.currentWeather.weather" v-bind:key="index">
-                        <div class="test">
-                            <div v-if="value.main === 'Clear'">
-                                <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
-                            </div>
-                            <div v-else-if="value.main === 'Clouds'">
-                                <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
-                            </div>
-                            <div v-else-if="value.main === 'Rain'">
-                                <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
-                            </div>
-                            <div v-else-if="value.main === 'Snow'">
-                                <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
-                            </div>
-                            <div v-else-if="value.main === 'Thunderstorm'">
-                                <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
-                            </div>
-                        </div>
-                        <div class="test2" v-if="index === 0">
-                            {{ value.description }}
-                        </div>
+                <div id="weather-content" v-for="(value, index) in this.currentWeather.weather" v-bind:key="index">
+                    <div class="weather-icon-container" v-if="value.main === 'Clear'">
+                        <img v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                    </div>
+                    <div v-else-if="value.main === 'Clouds'">
+                        <img v-bind:src="iconUrlCloud" class="weather-icon-image" alt="">
+                    </div>
+                    <div v-else-if="value.main === 'Rain'">
+                        <img v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
+                    </div>
+                    <div v-else-if="value.main === 'Snow'">
+                        <img v-bind:src="iconUrlSnow" class="weather-icon-image" alt="">
+                    </div>
+                    <div v-else-if="value.main === 'Thunderstorm'">
+                        <img v-bind:src="iconUrlThunder" class="weather-icon-image" alt="">
+                    </div>
+
+                    <div class="weather-details-container" v-if="index === 0">
+                        {{ value.description }}
                     </div>
                 </div>
             </div>
@@ -96,22 +93,28 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-#weather-content
+.section-center
     display flex
     flex-direction column
+    width 100vw
     align-items center
 
-.test
+#weather-content
     display flex
-    flex 1
+    flex-direction row
+    justify-content space-evenly
+    align-items center
+    background yellowgreen
     width 50vw
-    align-items center
 
-.test2
-    display flex
-    flex 1
+.weather-icon-container
+    background #e8f4ff
+
+.weather-details-container
+    min-width 250px
+    background red
 
 .weather-icon-image
-    width: 450px
+    width: 500px
 
 </style>
