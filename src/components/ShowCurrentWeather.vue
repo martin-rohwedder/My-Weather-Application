@@ -104,6 +104,7 @@ export default {
             let tempMin = main.temp_min
             return Math.round(tempMin)
         },
+        // Get the country code
         getCountryCode(sys) {
             let countryCode = sys.country
             return countryCode
