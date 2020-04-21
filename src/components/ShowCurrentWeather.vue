@@ -6,8 +6,8 @@
 
         <section class="section-center" v-else>
             <div v-if="loading">
-                <img v-show="isItDay()" v-bind:src="iconUrlSpinnerDay" alt="">
-                <img v-show="!isItDay()" v-bind:src="iconUrlSpinnerNight" alt="">
+                <img v-show="isItDay" v-bind:src="iconUrlSpinnerDay" alt="">
+                <img v-show="!isItDay" v-bind:src="iconUrlSpinnerNight" alt="">
             </div>
 
             <div v-else>
@@ -16,13 +16,13 @@
                         <div v-for="(weather, propertyName, index) in value.weather" v-bind:key="index">
                             <!-- Clear -->
                             <div class="weather-icon-container" v-if="weather.id === 800">
-                                <img v-show="isItDay()" v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
-                                <img v-show="!isItDay()" v-bind:src="iconUrlClearNight" class="weather-icon-image" alt="">
+                                <img v-show="isItDay" v-bind:src="iconUrlClearDay" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay" v-bind:src="iconUrlClearNight" class="weather-icon-image" alt="">
                             </div>
                             <!-- Few Clouds -->
                             <div class="weather-icon-container" v-else-if="weather.id >= 801 && weather.id <= 802">
-                                <img v-show="isItDay()" v-bind:src="iconUrlCloudDay" class="weather-icon-image" alt="">
-                                <img v-show="!isItDay()" v-bind:src="iconUrlCloudNight" class="weather-icon-image" alt="">
+                                <img v-show="isItDay" v-bind:src="iconUrlCloudDay" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay" v-bind:src="iconUrlCloudNight" class="weather-icon-image" alt="">
                             </div>
                             <!-- Many clouds -->
                             <div class="weather-icon-container" v-else-if="weather.id >= 803 && weather.id <= 804">
@@ -30,8 +30,8 @@
                             </div>
                             <!-- Light Rain -->
                             <div class="weather-icon-container" v-else-if="weather.id === 500">
-                                <img v-show="isItDay()" v-bind:src="iconUrlRainAndSun" class="weather-icon-image" alt="">
-                                <img v-show="!isItDay()" v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
+                                <img v-show="isItDay" v-bind:src="iconUrlRainAndSun" class="weather-icon-image" alt="">
+                                <img v-show="!isItDay" v-bind:src="iconUrlRain" class="weather-icon-image" alt="">
                             </div>
                             <!-- Rain -->
                             <div class="weather-icon-container" v-else-if="weather.id > 500 && weather.id <= 531">
@@ -66,7 +66,7 @@
         </section>
 
         <section class="section-center">
-            <SearchCityComponent v-on:searchCityName="doSearch" v-bind:isItDay="isItDay()" />
+            <SearchCityComponent v-on:searchCityName="doSearch" v-bind:isItDay="isItDay" />
         </section>
     </div>
 </template>
@@ -79,6 +79,9 @@ export default {
     name: 'ShowCurrentWeatherComponent',
     components: {
         SearchCityComponent
+    },
+    props: {
+        isItDay: Boolean
     },
     data() {
         return {
@@ -123,20 +126,6 @@ export default {
                     }, 300)
                     // this.loading = false
                 })
-        },
-        // Determine if it is day or night
-        isItDay() {
-            let hours = new Date().getHours()
-            let isItDay = true
-
-            // If hours is between 6 and 20 exclusive it is day
-            if (hours > 5 && hours < 20) {
-                isItDay = true
-            } else {
-                isItDay = false
-            }
-
-            return isItDay
         },
         // Get rounded Max temperature
         getMaxTemp(main) {

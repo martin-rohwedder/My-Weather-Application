@@ -1,6 +1,6 @@
 <template>
     <main>
-        <ShowCurrentWeatherComponent />
+        <ShowCurrentWeatherComponent v-bind:isItDay="isItDay" />
     </main>
 </template>
 
@@ -11,6 +11,9 @@
         name: 'MainComponent',
         components: {
             ShowCurrentWeatherComponent
+        },
+        props: {
+            isItDay: Boolean
         }
     }
 </script>

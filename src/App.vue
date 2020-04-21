@@ -2,7 +2,7 @@
   <div id="app" v-bind:class="{'day-background': this.dayOrNot, 'night-background': !this.dayOrNot}">
     <HeaderComponent />
     <div id="site-content">
-      <MainComponent />
+      <MainComponent v-bind:isItDay="dayOrNot" />
     </div>
     <FooterComponent />
   </div>
