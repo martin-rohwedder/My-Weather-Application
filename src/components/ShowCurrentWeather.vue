@@ -89,6 +89,7 @@ export default {
             loading: true,
             errored: false,
             cityName: '',
+            myLocation: null,
 
             // List of weather Condition Codes: https://openweathermap.org/weather-conditions
             iconUrlClearDay: require('../assets/weather-icons/day.svg'),
@@ -107,13 +108,43 @@ export default {
         }
     },
     mounted() {
-        this.getCurrentWeather('København, dk', 'da', 'metric')
+        if (!("geolocation" in navigator)) {
+            this.getCurrentWeather('København, dk', 'da', 'metric')
+            return
+        }
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.myLocation = position
+
+            this.getCurrentWeatherByLatAndLon(this.myLocation.coords.latitude, this.myLocation.coords.longitude, 'da', 'metric')
+        }, (error) => {
+            console.log(error)
+            this.errored = true
+        })
+        //this.getCurrentWeather('København, dk', 'da', 'metric')
     },
     methods: {
         // get the current weather by cityname and countrycode. Define the language and units (Celsius, Fahrenheit) the data will be returned as
         getCurrentWeather(cityName, language, units) {
             axios
                 .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
+                .then(response => (this.currentWeather = response))
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => {
+                    // Time out for test purposes
+                    setTimeout(() => {
+                        this.loading = false
+                    }, 300)
+                    // this.loading = false
+                })
+        },
+        // Get the current weather by latitude and longitude
+        getCurrentWeatherByLatAndLon(latitude, longitude, language, units) {
+            axios
+                .get('http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
                 .then(response => (this.currentWeather = response))
                 .catch(error => {
                     console.log(error)
