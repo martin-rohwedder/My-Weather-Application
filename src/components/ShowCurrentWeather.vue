@@ -66,7 +66,7 @@
         </section>
 
         <section class="section-center">
-            <SearchCityComponent v-on:searchCityName="doSearch" />
+            <SearchCityComponent v-on:searchCityName="doSearch" v-bind:isItDay="isItDay()" />
         </section>
     </div>
 </template>
