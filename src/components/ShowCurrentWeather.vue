@@ -62,9 +62,11 @@
                         <p v-show="propertyName === 'country'" class="city-name-text">{{ value.name }}, {{ getCountryCode(value.sys) }}</p>
                     </div>
                 </div>
-
-                <SearchCityComponent v-on:searchCityName="doSearch" />
             </div>
+        </section>
+
+        <section class="section-center">
+            <SearchCityComponent v-on:searchCityName="doSearch" />
         </section>
     </div>
 </template>
@@ -155,6 +157,7 @@ export default {
         doSearch(value) {
             this.cityName = value
             this.loading = true
+            this.errored = false
 
             this.getCurrentWeather(this.cityName, 'da', 'metric')
         }
