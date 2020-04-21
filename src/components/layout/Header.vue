@@ -17,16 +17,16 @@
                 let title = 'Vejret i dag'
                 let hours = new Date().getHours()
 
-                // Morning 6-9
-                if (hours >= 6 && hours <= 9) {
+                // Morning 6-8
+                if (hours >= 6 && hours <= 8) {
                     title = 'Vejret til morgen'
                 }
-                // Noon 10-12
-                else if (hours >= 10 && hours <= 12) {
+                // Noon 9-11
+                else if (hours >= 9 && hours <= 11) {
                     title = 'Vejret til formiddag'
                 }
-                // Afternoon 13-17
-                else if (hours >= 13 && hours <= 17) {
+                // Afternoon 12-17
+                else if (hours >= 12 && hours <= 17) {
                     title = 'Vejret til eftermiddag'
                 }
                 // Evening 18-23

@@ -31,7 +31,7 @@ export default {
       let hours = new Date().getHours()
       let isItDay = true
 
-      // If hours is between 6 and 20 exclusive it is day
+      // If hours is between 5 and 20 (Both exclusive) it is day
       if (hours > 5 && hours < 20) {
           isItDay = true
       } else {
