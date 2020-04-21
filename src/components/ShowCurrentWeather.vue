@@ -62,6 +62,8 @@
                         <p v-show="propertyName === 'country'" class="city-name-text">{{ value.name }}, {{ getCountryCode(value.sys) }}</p>
                     </div>
                 </div>
+
+                <SearchCityComponent />
             </div>
         </section>
     </div>
@@ -69,9 +71,13 @@
 
 <script>
 import axios from 'axios'
+import SearchCityComponent from './SearchCityComponent'
 
 export default {
     name: 'ShowCurrentWeatherComponent',
+    components: {
+        SearchCityComponent
+    },
     data() {
         return {
             currentWeather: {},
