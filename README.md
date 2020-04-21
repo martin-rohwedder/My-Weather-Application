@@ -1,24 +1,14 @@
-# my-weather
+# My Weather Application
 
-## Project setup
-```
-npm install
-```
+This weather application is made with [Vue.js](https://vuejs.org/) frontend framework, and uses a free api from [openweathermap.org](https://openweathermap.org/) for getting weather data.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Current Features
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Get simple weather data for cities around the world
+- Day and night styling
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Upcoming Features (Todos)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Get current location weather data
+- Set day and night styling after current location sunrise and sunset data
+- Make settings slider for setting different settings. Eg. defining units, localization, and how much weather data you want.
