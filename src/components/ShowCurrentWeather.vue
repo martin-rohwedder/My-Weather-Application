@@ -153,7 +153,7 @@ export default {
             let countryCode = sys.country
             return countryCode
         },
-        // Do search
+        // Do search - Gets the value from the child component (SearchCityComponent)
         doSearch(value) {
             this.cityName = value
             this.loading = true
