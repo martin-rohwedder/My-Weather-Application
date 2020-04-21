@@ -1,8 +1,8 @@
 <template>
     <div id="search-city-container">
         <div class="outer-shadow">
-            <form action="" class="form-day-container" v-on:submit.prevent="searchCity">
-                <input class="search-input-box" type="search" placeholder="F.eks. København eller København, DK" />
+            <form class="form-day-container" v-on:submit.prevent="searchCity">
+                <input v-model.trim="cityName" class="search-input-box" type="search" placeholder="F.eks. København eller København, DK" />
                 <input class="search-input-btn" type="submit" value="Find By">
             </form>
         </div>
@@ -12,9 +12,18 @@
 <script>
     export default {
         name: 'SearchCityComponent',
+        data() {
+            return {
+                cityName: ''
+            }
+        },
         methods: {
             searchCity() {
-                console.log("City Searched")
+                // Emit the city name to the parent (ShowCurrentWeatherComponent)
+                this.$emit('searchCityName', this.cityName)
+
+                // Reset variable so form field is reset on search
+                this.cityName = ''
             }
         }
     }

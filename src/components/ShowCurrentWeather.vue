@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <SearchCityComponent />
+                <SearchCityComponent v-on:searchCityName="doSearch" />
             </div>
         </section>
     </div>
@@ -83,6 +83,8 @@ export default {
             currentWeather: {},
             loading: true,
             errored: false,
+            cityName: '',
+
             // List of weather Condition Codes: https://openweathermap.org/weather-conditions
             iconUrlClearDay: require('../assets/weather-icons/day.svg'),
             iconUrlClearNight: require('../assets/weather-icons/night.svg'),
@@ -100,13 +102,13 @@ export default {
         }
     },
     mounted() {
-        this.getCurrentWeather('København', 'dk', 'da', 'metric')
+        this.getCurrentWeather('København, dk', 'da', 'metric')
     },
     methods: {
         // get the current weather by cityname and countrycode. Define the language and units (Celsius, Fahrenheit) the data will be returned as
-        getCurrentWeather(cityName, country, language, units) {
+        getCurrentWeather(cityName, language, units) {
             axios
-                .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',' + country + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
+                .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
                 .then(response => (this.currentWeather = response))
                 .catch(error => {
                     console.log(error)
@@ -116,7 +118,7 @@ export default {
                     // Time out for test purposes
                     setTimeout(() => {
                         this.loading = false
-                    }, 1000)
+                    }, 300)
                     // this.loading = false
                 })
         },
@@ -148,6 +150,13 @@ export default {
         getCountryCode(sys) {
             let countryCode = sys.country
             return countryCode
+        },
+        // Do search
+        doSearch(value) {
+            this.cityName = value
+            this.loading = true
+
+            this.getCurrentWeather(this.cityName, 'da', 'metric')
         }
     }
 }
