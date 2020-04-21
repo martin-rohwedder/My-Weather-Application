@@ -178,10 +178,13 @@ export default {
     min-width 100px
 
 .weather-icon-image
-    width: 450px
+    width: 400px
 
 .main-temperature-text
     font-size 4em
+    width 100px
+    text-align center
+    height 90px
 
 .min-max-temp-container > p
     width 100px
