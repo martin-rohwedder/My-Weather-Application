@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p>&copy; 2020 Martin Rohwedder. All rights reserved.</p>
+        <p>&copy; 2020 Martin Rohwedder. Alle rettigheder forbeholdt.</p>
     </footer>
 </template>
 
