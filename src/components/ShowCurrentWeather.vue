@@ -126,8 +126,17 @@ export default {
     methods: {
         // get the current weather by cityname and countrycode. Define the language and units (Celsius, Fahrenheit) the data will be returned as
         getCurrentWeather(cityName, language, units) {
+            let url = ''
+
+            if (location.protocol === 'http:') {
+                url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units
+            }
+            else {
+                url = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units
+            }
+
             axios
-                .get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
+                .get(url)
                 .then(response => (this.currentWeather = response))
                 .catch(error => {
                     console.log(error)
@@ -143,8 +152,17 @@ export default {
         },
         // Get the current weather by latitude and longitude
         getCurrentWeatherByLatAndLon(latitude, longitude, language, units) {
+let url = ''
+
+            if (location.protocol === 'http:') {
+                url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units
+            }
+            else {
+                url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units
+            }
+
             axios
-                .get('http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&appid=becea41c15a8e7e9c71432a09c2b2432&lang=' + language + '&units=' + units)
+                .get(url)
                 .then(response => (this.currentWeather = response))
                 .catch(error => {
                     console.log(error)
