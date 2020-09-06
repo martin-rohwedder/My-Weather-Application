@@ -12,3 +12,7 @@ This weather application is made with [Vue.js](https://vuejs.org/) frontend fram
 
 - Set day and night styling after current location sunrise and sunset data
 - Make settings slider for setting different settings. Eg. defining units, localization, and how much weather data you want.
+
+## Demo Application
+
+You can check out a demo of this application at [https://myweather.martin-rohwedder.dk](https://myweather.martin-rohwedder.dk/)
